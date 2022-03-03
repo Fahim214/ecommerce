@@ -20,7 +20,7 @@ class APIFeatures {
     filter(){
 
         const queryCopy = { ...this.queryStr }
-
+ 
     
 
         // Removing fields from the query
@@ -41,7 +41,7 @@ class APIFeatures {
 
     pagination(resPerPage){
         const currentPage = Number(this.queryStr.page) || 1;
-        const skip = resPerPage = (currentPage - 1);
+        const skip = resPerPage * (currentPage - 1);
 
         this.query = this.query.limit(resPerPage).skip(skip)
         return this
