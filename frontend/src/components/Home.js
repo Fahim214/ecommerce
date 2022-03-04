@@ -15,8 +15,7 @@ const Home = () => {
   const alert = useAlert()
   const dispatch = useDispatch();
 
-  const { loading, products, error, productsCount, resPerPage } = useSelector(
-    (state) => state.products
+  const { loading, products, error, productsCount, resPerPage } = useSelector(state => state.products
   );
 
   useEffect(() => {
@@ -49,7 +48,7 @@ const Home = () => {
             </div>
           </section>
           
-         
+                  
             <div className="d-flex justify-content-center mt-5">
             <Pagination 
               activePage={currentPage}
@@ -60,7 +59,7 @@ const Home = () => {
               prevPageText={'Prev'}
               firstPageText={'First'}
               lastPageText={'Last'}
-              itemClass='Page-item'
+              itemClass='page-item'
               linkClass='page-link'
             />
           </div>
