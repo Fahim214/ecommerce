@@ -57,6 +57,19 @@ exports.loginUser = catchAsyncError(async (req, res, next)=> {
     sendToken(user, 200, res)
 })
 
+// logout user => /api/v1/logout
+exports.logout = catchAsyncError(async(req, res, next) => {
+    res.cookie("token", null, {
+        expires: new Date(Date.now()),
+        httpOnly: true
+    })
+
+    res.status(200).json({
+        success: true,
+        message: 'Logged out'
+    })
+})
+
 // Forgot password => /api/v1/password/forgot\
 exports.forgotPassword = catchAsyncError(async (req, res, next) => {
     const user = await User.findOne({email: req.body.email})
@@ -173,18 +186,6 @@ exports.updateProfile = catchAsyncError(async (req, res, next) => {
     })
 })
 
-// logout user => /api/v1/logout
-exports.logout = catchAsyncError(async(req, res, next) => {
-    res.cookie('token', null, {
-        expires: new Date(Date.now()),
-        httpOnly: true
-    })
-
-    res.status(200).json({
-        success: true,
-        message: 'Logged out'
-    })
-})
 
 // Admin routes
 

@@ -10,6 +10,7 @@ import Register from "./components/user/Register";
 
 import {loadUser} from './actions/UserAction'
 import store from './Store'
+import Profile from "./components/user/Profile";
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
             <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/me/:id" element={<Profile />} />
         </Routes>
         <Footer />
       </div>

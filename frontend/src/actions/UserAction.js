@@ -12,7 +12,9 @@ import {
   LOAD_USER_FAIL,
   LOGOUT_SUCCESS,
   LOGOUT_FAIL,
-  USER_LOGOUT,
+  USER_DETAIL_REQUEST,
+  USER_DETAIL_SUCCESS,
+  USER_DETAIL_FAIL,
     CLEAR_ERRORS,
   } from "../constants/UserConstans";
 
@@ -52,7 +54,7 @@ export const register = (userData) => async (dispatch) => {
             }
         }
 
-        const {data} = await axios.post('/api/v1/register', userData, {config})
+        const {data} = await axios.post('/api/v1/register', userData, config)
 
         dispatch({
             type: REGISTER_USER_SUCCESS,
@@ -88,13 +90,14 @@ export const loadUser = () => async (dispatch) => {
 
 //  Logout user
 export const logout = () => async (dispatch) => {
+    
     try {
-
-        const {data} = await axios.get('/api/v1/logout')
+        await axios.get('/api/v1/logout')
 
         dispatch({
             type: LOGOUT_SUCCESS,
         })
+
     } catch (error) {
         dispatch({
             type: LOGOUT_FAIL,
@@ -104,13 +107,27 @@ export const logout = () => async (dispatch) => {
 }
 
 
-// // User Logout
-// export const logout = () => dispatch => {
-//     localStorage.removeItem('user')
-//     dispatch({type: USER_LOGOUT})
-// }
+// User detail profile
+export const profile = (id) => async (dispatch) => {
+    try {
+        dispatch({type: USER_DETAIL_REQUEST})
 
-//   clear error
+        const {data} = await axios.get(`/api/v1/me/${id}`)
+
+        dispatch({
+            type: USER_DETAIL_SUCCESS,
+            payload: data.user
+        })
+    } catch (error) {
+        dispatch({
+            type: USER_DETAIL_FAIL,
+            payload: error.response.data.message
+        })
+    }
+}
+
+
+
 export const clearError = () => async (dispatch) => {
     dispatch({
       type: CLEAR_ERRORS,

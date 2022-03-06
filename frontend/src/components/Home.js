@@ -7,6 +7,8 @@ import Loader from "./layout/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../actions/ProductAction";
 import { useAlert } from "react-alert";
+import SliderComp from './layout/SliderComp'
+import CategoryComp from "./layout/CategoryComp";
 
 const Home = () => {
 
@@ -33,13 +35,16 @@ const Home = () => {
   }
 
   return (
-    <div className="container container-fluid">
+    <>
+      <SliderComp />
+      <CategoryComp />
+    <div className=" container-fluid" style={{width: "95%"}}>
       {loading ? 
         <Loader /> : (
         <Fragment>
           <MetaData title={"Buy Best Product Online"} />
           <h1 id="products_heading">Latest product</h1>
-          <section id="products" className="container mt-5">
+          <section id="products" className="container-fluid mt-5" style={{width: "100%"}}>
             <div className="row">
               {products &&
                 products.map((product) => (
@@ -68,6 +73,7 @@ const Home = () => {
         </Fragment>
       )}
     </div>
+    </>
   );
 };
 

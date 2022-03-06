@@ -7,6 +7,9 @@ import store from "./Store";
 import { positions, transitions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+
 const options = {
   timeout: 5000,
   positions: positions.BOTTOM_CENTER,

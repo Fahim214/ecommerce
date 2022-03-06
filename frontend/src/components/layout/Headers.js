@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {Dropdown} from 'react-bootstrap'
 
 import { useDispatch, useSelector } from "react-redux";
@@ -12,18 +12,22 @@ const Headers = () => {
   const alert = useAlert();
   const dispatch = useDispatch();
 
-  const { user, loading } = useSelector((state) => state.auth);
+  // const navigate = useNavigate()
+
+  const { user, loading} = useSelector((state) => state.auth);
 
   const logoutHandler = () => {
+    localStorage.clear(user)
     dispatch(logout())
     alert.success('Logged Out SuccessFully')
+    // navigate('/')
   }
   return (
     <Fragment>
       <nav className="navbar row">
         <div className="col-12 col-md-3">
           <div className="navbar-brand">
-            <img src="/images/logo.png" />
+            <h1>OKDI CART</h1>
           </div>
         </div>
 
@@ -73,25 +77,34 @@ const Headers = () => {
                 className="dropdown-menu"
               >
                 {user && user.role !== "admin" ? (
-                  <Dropdown.Item  href="orders/me">
-                    Orders
+                  <Dropdown.Item>
+                    <Link to="orders/me">
+                      Orders
+                    </Link>
                   </Dropdown.Item>
                 ) : (
-                  <Dropdown.Item  href="/dashboard">
+                  <Dropdown.Item>
+                    <Link to="dashboard">
+
                     Dashboard
+                    </Link>
                   </Dropdown.Item>
                 )}
-                <Dropdown.Item  href="/me">
-                  Profile
+                <Dropdown.Item >
+                  <Link to={`/me/${user._id}`}>
+                    Profile
+                  </Link>
                 </Dropdown.Item>
                 <Dropdown.Item onClick={logoutHandler}>
+                  <Link to="/">
                   Logout
+                  </Link>
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           ) : (
             !loading && (
-              <Link to="/login" className="btn" id="login_btn">
+              <Link to="/login" className="btn mx-3" id="login_btn">
                 Login
               </Link>
             )

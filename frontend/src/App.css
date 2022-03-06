@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Secular+One&display=swap');
+
+
 html,
 body {
   font-family: 'Amazon Ember';
@@ -27,8 +30,12 @@ body {
 }
 
 nav {
-  background-color: #232f3e;
+  background-color: rgb(9, 130, 177);
   padding: 1rem 1rem;
+}
+
+nav h1{
+  font-family: 'Secular One', sans-serif;
 }
 
 #search_btn {
@@ -48,7 +55,7 @@ nav {
 #login_btn,
 #view_btn {
   background-color: #febd69;
-  padding: 0.4rem 1.8rem;
+  /* padding: 0.3rem 1.5rem; */
   font-family: calibri;
 }
 
@@ -77,6 +84,11 @@ nav {
 
 .card-title a {
   color: #2e2e2e;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
 }
 
 .card-title a:hover {
@@ -98,8 +110,8 @@ nav {
 }
 
 .card-img-top {
-  width: 200px;
-  height: 150px;
+  width: 150px;
+  height: 130px;
 }
 
 .ratings {
@@ -613,4 +625,8 @@ ul.CTAs a {
 .review_user {
   font-size: 0.8rem;
   color: grey;
+}
+
+.slider{
+  border-radius: 15px;
 }

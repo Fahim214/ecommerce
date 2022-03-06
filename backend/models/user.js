@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, 'Please enter your name'],
-        maxlength: [10, 'Your Name cannot exceed 30 charac']
+        maxlength: [10, 'Your Name cannot exceed 10 charac']
     },
     email: {
         type: String,
@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema({
         default: Date.now
     },
     resetPasswordToken: String,
-    resetPasswordExpire: Date
+    resetPasswordExpire: Date,
 })
 
 
@@ -77,7 +77,7 @@ userSchema.methods.getResetPasswordToken = function() {
     this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex')
 
     // set token expire time
-    this.resetPasswordExpire = Date.now() + 30 * 60 * 1000
+    this.resetPasswordExpire = Date.now() + 15 * 60 * 1000
 
     return resetToken
 }
