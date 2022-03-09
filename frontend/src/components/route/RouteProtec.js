@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { Route, Redirect, Navigate } from 'react-router-dom'
+import { Route, Redirect, Navigate, Routes } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 const RouteProtec = ({ isAdmin, component: Component, ...rest }) => {
@@ -9,6 +9,7 @@ const RouteProtec = ({ isAdmin, component: Component, ...rest }) => {
     return (
         <Fragment>
             {loading === false && (
+                <Routes>
                 <Route
                     {...rest}
                     render={props => {
@@ -23,6 +24,7 @@ const RouteProtec = ({ isAdmin, component: Component, ...rest }) => {
                         return <Component {...props} />
                     }}
                 />
+                </Routes>
             )}
         </Fragment>
     )

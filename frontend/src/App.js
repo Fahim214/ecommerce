@@ -7,8 +7,8 @@ import Headers from "./components/layout/Headers";
 import ProductDetails from "./components/product/ProductDetails";
 import Login from "./components/user/Login";
 import Register from "./components/user/Register";
-import {loadUser} from './actions/UserAction'
-import store from './Store'
+import { loadUser } from "./actions/UserAction";
+import store from "./Store";
 import Profile from "./components/user/Profile";
 import ProductCart from "./components/product/ProductCart";
 import Product from "./components/product/Product";
@@ -17,48 +17,64 @@ import { createBrowserHistory } from "history";
 import ConfirmOrder from "./components/product/ConfirmOrder";
 import Payment from "./components/product/Payment";
 
-import { Elements } from '@stripe/react-stripe-js'
-import { loadStripe } from '@stripe/stripe-js'
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import RouteProtec from "./components/route/RouteProtec";
 import OrderSuccess from "./components/product/OrderSuccess";
-
+import ListOrders from "./components/product/ListOrder";
+import Dashboard from "./components/admin/Dashboard";
+import OrderDetails from "./components/product/OrderDetail";
 
 function App() {
-
-  const [stripeApiKey, setStripeApiKey] = useState('');
+  const [stripeApiKey, setStripeApiKey] = useState("");
 
   useEffect(() => {
-    store.dispatch(loadUser())
+    store.dispatch(loadUser());
 
     async function getStripApiKey() {
-      const { data } = await axios.get('/api/v1/stripeapi');
+      const { data } = await axios.get("/api/v1/stripeapi");
 
-      setStripeApiKey(data.stripeApiKey)
+      setStripeApiKey(data.stripeApiKey);
     }
 
     getStripApiKey();
-
-  }, [])
+  }, []);
 
   useEffect(() => {
-    store.dispatch(loadUser())
-  }, [])
+    store.dispatch(loadUser());
+  }, []);
+
+
+  // const { isAuthenticated, loading, user } = useSelector(state => state.auth)
+
   return (
     <Router>
       <div className="App">
         <Headers />
         <Routes>
-            <Route path="/" element={<Home />} exact />
-            <Route path="/product" element={<Product />} />
-            <Route path="/product/:id" element={<ProductDetails />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/me/:id" element={<Profile />} />
-            <Route path="/cart" element={<ProductCart />}/>
-            <Route path="/shipping" element={<Shipping />} />
-            <Route path="/confirm" element={<ConfirmOrder />} />
-            <Route path="/success" element={<OrderSuccess />} />
+          <Route path="/" element={<Home />} exact />
+          <Route path="/product" element={<Product />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/me/:id" element={<Profile />} />
+          <Route path="/cart" element={<ProductCart />} />
+          <Route path="/shipping" element={<Shipping />} />
+          <Route path="/confirm" element={<ConfirmOrder />} />
+          <Route path="/success" element={<OrderSuccess />} />
+          <Route path="/orders/me" element={<ListOrders />} />
+          <Route path="/order/:id" element={<OrderDetails />} />
+
+          {stripeApiKey &&
+          <Route path="/payment" element={<RouteProtec />}>
+            <Route path="/payment/*" element={<Payment />} exact/>
+          </Route>
+          }
+
+          {/* <Route path="/dashboard" isAdmin={true} element={<RouteProtec />}>
+            <Route path="/dashboard" element={<Dashboard />} exact />
+          </Route> */}
         </Routes>
         <Footer />
       </div>
