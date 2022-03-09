@@ -13,33 +13,11 @@ import Profile from "./components/user/Profile";
 import ProductCart from "./components/product/ProductCart";
 import Product from "./components/product/Product";
 import Shipping from "./components/product/Shipping";
-import { createBrowserHistory } from "history";
 import ConfirmOrder from "./components/product/ConfirmOrder";
-import Payment from "./components/product/Payment";
-
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
-import RouteProtec from "./components/route/RouteProtec";
 import OrderSuccess from "./components/product/OrderSuccess";
-import ListOrders from "./components/product/ListOrder";
-import Dashboard from "./components/admin/Dashboard";
-import OrderDetails from "./components/product/OrderDetail";
 
 function App() {
-  const [stripeApiKey, setStripeApiKey] = useState("");
-
-  useEffect(() => {
-    store.dispatch(loadUser());
-
-    async function getStripApiKey() {
-      const { data } = await axios.get("/api/v1/stripeapi");
-
-      setStripeApiKey(data.stripeApiKey);
-    }
-
-    getStripApiKey();
-  }, []);
 
   useEffect(() => {
     store.dispatch(loadUser());
@@ -54,6 +32,7 @@ function App() {
         <Headers />
         <Routes>
           <Route path="/" element={<Home />} exact />
+          <Route path="/search/:keyword" element={<Home />} />
           <Route path="/product" element={<Product />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/login" element={<Login />} />
@@ -63,18 +42,6 @@ function App() {
           <Route path="/shipping" element={<Shipping />} />
           <Route path="/confirm" element={<ConfirmOrder />} />
           <Route path="/success" element={<OrderSuccess />} />
-          <Route path="/orders/me" element={<ListOrders />} />
-          <Route path="/order/:id" element={<OrderDetails />} />
-
-          {stripeApiKey &&
-          <Route path="/payment" element={<RouteProtec />}>
-            <Route path="/payment/*" element={<Payment />} exact/>
-          </Route>
-          }
-
-          {/* <Route path="/dashboard" isAdmin={true} element={<RouteProtec />}>
-            <Route path="/dashboard" element={<Dashboard />} exact />
-          </Route> */}
         </Routes>
         <Footer />
       </div>

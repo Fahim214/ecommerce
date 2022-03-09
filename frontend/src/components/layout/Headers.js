@@ -5,6 +5,7 @@ import {Dropdown} from 'react-bootstrap'
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 import { logout } from "../../actions/UserAction"; 
+import Search from './Search'
 
 import "../../App.css";
 
@@ -16,25 +17,26 @@ const Headers = () => {
 
   const { user, loading} = useSelector((state) => state.auth);
 
-  const { cartItems } = useSelector(state => state.cart);
+  const { cartItems, shippingInfo } = useSelector(state => state.cart);
 
   const logoutHandler = () => {
     localStorage.clear(user)
     dispatch(logout())
     alert.success('Logged Out SuccessFully')
-    // navigate('/')
   }
   return (
     <Fragment>
       <nav className="navbar row">
         <div className="col-12 col-md-3">
           <div className="navbar-brand">
-            <h1>OKDI CART</h1>
+            <Link to="/" style={{textDecoration: "none", color: "white", fontWeight: "bold"}}>
+            <h3>OKDI CART</h3>
+            </Link>
           </div>
         </div>
 
         <div className="col-12 col-md-6 mt-2 mt-md-0">
-          <div className="input-group">
+          {/* <div className="input-group">
             <input
               type="text"
               id="search_field"
@@ -46,7 +48,8 @@ const Headers = () => {
                 <i className="fa fa-search" aria-hidden="true"></i>
               </button>
             </div>
-          </div>
+          </div> */}
+          <Search />
         </div>
 
         <div className="col-12 col-md-3 mt-4 mt-md-0 text-center">

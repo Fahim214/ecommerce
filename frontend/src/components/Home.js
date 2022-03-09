@@ -10,13 +10,35 @@ import { useAlert } from "react-alert";
 import SliderComp from "./layout/SliderComp";
 import CategoryComp from "./layout/CategoryComp";
 import { Button, Col, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import Search from "./layout/Search";
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
+  const [category, setCategory] = useState("");
+
+  const categories = [
+    "Electronics",
+    "Buku",
+    "Cameras",
+    "Laptop",
+    "Accessories",
+    "Headsphones",
+    "Food",
+    "Books",
+    "Clothes/Shoes",
+    "Beauty/Health",
+    "Sports",
+    "Outdoor",
+  ];
+
+  const params = useParams();
+
   const alert = useAlert();
   const dispatch = useDispatch();
+
+  const keyword = params.keyword;
 
   const { loading, products, error, productsCount, resPerPage } = useSelector(
     (state) => state.products
@@ -27,8 +49,8 @@ const Home = () => {
       return alert.error(error);
     }
 
-    dispatch(getProducts(currentPage));
-  }, [dispatch, alert, error, currentPage]);
+    dispatch(getProducts(keyword, currentPage, category));
+  }, [dispatch, alert, error, currentPage, keyword, category]);
 
   function setCurrentPageNo(pageNumber) {
     setCurrentPage(pageNumber);
@@ -44,29 +66,21 @@ const Home = () => {
         ) : (
           <Fragment>
             <MetaData title={"Buy Best Product Online"} />
-            <Row>
-              <Col md={6}>
+            <Row className="text-center">
+              <Col md={3}>
                 <h1 id="products_heading">Latest product</h1>
               </Col>
+              <Col md={3} style={{ marginTop: 40 }}>
+                <Search />
+              </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <Link to="/" className="btn btn-outline-primary mx-1">
-                  Elektronik
-                </Link>
-                <Link to="/" className="btn btn-outline-primary mx-1">
-                  Buku
-                </Link>
-                <Link to="/" className="btn btn-outline-primary mx-1">
-                  Baju
-                </Link>
-                <Link to="/" className="btn btn-outline-primary mx-1">
-                  Celana
-                </Link>
-                <Link to="/" className="btn btn-outline-primary mx-1">
-                  Kaos
-                </Link>
-                <Link to="/" className="btn btn-outline-primary mx-1">
-                  Alat Rumah Tangga
-                </Link>
+              {categories.map((category) => (
+                  <Link to="/" className="btn btn-outline-primary mx-1 mb-3" key={category}
+                    onClick={() => setCategory(category)}
+                  >
+                    {category}
+                  </Link>
+              ))}
               </Col>
             </Row>
             <section

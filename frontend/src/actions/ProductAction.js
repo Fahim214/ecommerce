@@ -13,12 +13,17 @@ import {
   NEW_REVIEW_FAIL,
 } from "../constants/ProductConstenst";
 
-export const getProducts = (currentPage = 1) => async (dispatch) => {
+export const getProducts = (keyword = '', currentPage = 1, category) => async (dispatch) => {
   try {
     dispatch({ type: ALL_PRODUCTS_REQUEST });
 
-    const { data } = await axios.get(`/api/v1/products?page=${currentPage}`);
+    let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}`;
 
+    if(category){
+      link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&category=${category}`
+    }
+
+    const {data} = await axios.get(link)
     dispatch({
       type: ALL_PRODUCTS_SUCCESS,
       payload: data,

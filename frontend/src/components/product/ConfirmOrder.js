@@ -4,12 +4,17 @@ import { Link, useNavigate } from 'react-router-dom'
 import MetaData from '../layout/MetaData'
 import CheckoutSteps from './CheckoutSteps'
 
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { removeItemFromCart } from '../../actions/CartAction';
+
 
 const ConfirmOrder = ({ history }) => {
 
     const { cartItems, shippingInfo } = useSelector(state => state.cart)
     const { user } = useSelector(state => state.auth)
+
+    const dispatch = useDispatch()
+
 
     const navigate = useNavigate()
 
@@ -19,8 +24,7 @@ const ConfirmOrder = ({ history }) => {
     const taxPrice = Number((0.05 * itemsPrice).toFixed(2))
     const totalPrice = (itemsPrice + shippingPrice + taxPrice).toFixed(2)
 
-    const processToPayment = (e) => {
-        e.preventDefault()
+    const processToPayment = () => {
 
         const data = {
             itemsPrice: itemsPrice.toFixed(2),
@@ -30,7 +34,9 @@ const ConfirmOrder = ({ history }) => {
         }
 
         sessionStorage.setItem('orderInfo', JSON.stringify(data))
-        navigate('/orders/me')
+
+        dispatch(removeItemFromCart(cartItems, shippingInfo))
+        navigate('/success')
     }
 
     return (
@@ -92,7 +98,7 @@ const ConfirmOrder = ({ history }) => {
                         <p>Total: <span className="order-summary-values">${totalPrice}</span></p>
 
                         <hr />
-                        <button type='submit' id="checkout_btn" className="btn btn-primary btn-block" onClick={processToPayment}>Proceed to Payment</button>
+                        <button id="checkout_btn" className="btn btn-primary btn-block" onClick={processToPayment}>Order</button>
                     </div>
                 </div>
 

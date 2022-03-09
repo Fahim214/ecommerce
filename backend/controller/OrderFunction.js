@@ -123,3 +123,141 @@ exports.deleteOrder = catchAsyncErrors(async(req, res, next) => {
         success: true
     })
 })
+
+
+
+
+// Order Models
+const mongoose = require('mongoose')
+
+const orderSchema = mongoose.Schema({
+    shippingInfo: {
+        address: {
+            type: String,
+            required: true
+        },
+        city: {
+            type: String,
+            required: true
+        },
+        phoneNo: {
+            type: String,
+            required: true
+        },
+        postalCode: {
+            type: String,
+            required: true
+        },
+        country: {
+            type: String,
+            required: true
+        }
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'user'
+    },
+    orderItems: [
+        {
+            name: {
+                type: String,
+                required: true
+            },
+            quantity: {
+                type: Number,
+                required: true
+            },
+            image: {
+                type: String,
+                required: true
+            },
+            price: {
+                type: String,
+                required: true
+            },
+            product: {
+                type: String,
+                required: true,
+                ref: 'Product'
+            }
+        }
+    ],
+    paymentInfo: {
+        id: {
+            type: String
+        },
+        status: {
+            type: String
+        }
+    },
+    paidAt : {
+        type: Date
+    },
+    itemsPrice: {
+        type: Number,
+        required: true,
+        default: 0.0 
+    },
+    taxPrice: {
+        type: Number,
+        required: true,
+        default: 0.0 
+    },
+    shippingPrice: {
+        type: Number,
+        required: true,
+        default: 0.0 
+    },
+    totalPrice: {
+        type: Number,
+        required: true,
+        default: 0.0 
+    },
+    orderStatus: {
+        type: String,
+        required: true,
+        default: 'Processing'
+    },
+    deliveredAt: {
+        type: Date
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+
+})
+
+module.exports = mongoose.model('Order', orderSchema)
+
+
+
+// Order Router
+const express = require("express");
+const router = express.Router();
+
+const {
+  newOrder,
+  getSingleOrder,
+  myOrders,
+  allOrders,
+  updateOrders,
+  deleteOrder,
+} = require("./OrderFunction");
+
+const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
+
+router.route("/order/new").post(isAuthenticatedUser, newOrder);
+
+router.route("/order/:id").get(isAuthenticatedUser, getSingleOrder);
+router.route("/orders/me").get(isAuthenticatedUser, myOrders);
+router
+  .route("/admin/orders")
+  .get(isAuthenticatedUser, authorizeRoles("admin"), allOrders);
+router
+  .route("/admin/order/:id")
+  .put(isAuthenticatedUser, authorizeRoles("admin"), updateOrders)
+  .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteOrder);
+
+module.exports = router;
