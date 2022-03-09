@@ -16,6 +16,8 @@ const Headers = () => {
 
   const { user, loading} = useSelector((state) => state.auth);
 
+  const { cartItems } = useSelector(state => state.cart);
+
   const logoutHandler = () => {
     localStorage.clear(user)
     dispatch(logout())
@@ -53,7 +55,7 @@ const Headers = () => {
               Cart
             </span>
             <span className="ml-1" id="cart_count">
-              2
+            {cartItems.length}
             </span>
           </Link>
           {user ? (
