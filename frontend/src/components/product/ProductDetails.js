@@ -79,44 +79,6 @@ const ProductDetails = ({ match }) => {
     setQuantity(qty);
   };
 
-  function setUserRatings() {
-    const stars = document.querySelectorAll(".star");
-
-    stars.forEach((star, index) => {
-      star.starValue = index + 1;
-
-      ["click", "mouseover", "mouseout"].forEach(function (e) {
-        star.addEventListener(e, showRatings);
-      });
-    });
-
-    function showRatings(e) {
-      stars.forEach((star, index) => {
-        if (e.type === "click") {
-          if (index < this.starValue) {
-            star.classList.add("orange");
-
-            setRating(this.starValue);
-          } else {
-            star.classList.remove("orange");
-          }
-        }
-
-        if (e.type === "mouseover") {
-          if (index < this.starValue) {
-            star.classList.add("yellow");
-          } else {
-            star.classList.remove("yellow");
-          }
-        }
-
-        if (e.type === "mouseout") {
-          star.classList.remove("yellow");
-        }
-      });
-    }
-  }
-
   const reviewHandler = () => {
     const formData = new FormData();
 

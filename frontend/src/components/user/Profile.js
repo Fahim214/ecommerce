@@ -30,7 +30,6 @@ const Profile = () => {
                   class="rounded-circle img-fluid"
                   src={user.avatar && user.avatar.url}
                   alt={user.name}
-                  alt=""
                 />
               </figure>
               <a

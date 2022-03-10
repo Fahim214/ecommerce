@@ -13,7 +13,6 @@ import {
   USER_DETAIL_REQUEST,
   USER_DETAIL_SUCCESS,
   USER_DETAIL_FAIL,
-  CLEAR_COOKIE,
   CLEAR_ERRORS,
 } from "../constants/UserConstans";
 
