@@ -23,9 +23,6 @@ function App() {
     store.dispatch(loadUser());
   }, []);
 
-
-  // const { isAuthenticated, loading, user } = useSelector(state => state.auth)
-
   return (
     <Router>
       <div className="App">

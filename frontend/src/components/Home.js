@@ -9,14 +9,22 @@ import { getProducts } from "../actions/ProductAction";
 import { useAlert } from "react-alert";
 import SliderComp from "./layout/SliderComp";
 import CategoryComp from "./layout/CategoryComp";
-import { Button, Col, Row } from "react-bootstrap";
+import { Button, Col, Row, ToggleButton } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import Search from "./layout/Search";
+import BannerPromo from "./product/BannerPromo";
+import PromoComp from "./product/PromoComp";
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const [category, setCategory] = useState("");
+
+  const radios = [
+    { name: 'Active', value: '1' },
+    { name: 'Radio', value: '2' },
+    { name: 'Radio', value: '3' },
+  ];
 
   const categories = [
     "Electronics",
@@ -79,6 +87,7 @@ const Home = () => {
                     key={category}
                     onClick={() => setCategory(category)}
                   >
+
                     {category}
                   </Link>
                 ))}
@@ -97,7 +106,7 @@ const Home = () => {
               </div>
             </section>
 
-            <div className="d-flex justify-content-center mt-5">
+            <div className="d-flex justify-content-center mt-3">
               <Pagination
                 activePage={currentPage}
                 itemsCountPerPage={resPerPage}
@@ -111,6 +120,8 @@ const Home = () => {
                 linkClass="page-link"
               />
             </div>
+            <BannerPromo />
+            <PromoComp />
           </Fragment>
         )}
       </div>

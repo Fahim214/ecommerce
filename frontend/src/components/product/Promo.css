@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital@0;1&display=swap');
+
+
+.cont{
+  width: 95%;
+  margin: 10px auto;
+  font-family: 'Balsamiq Sans', cursive;
+}
+
+.rw_images{
+  display: flex;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  padding-bottom: 10px;
+}
+
+.rw_images::-webkit-scrollbar{
+  display: none;
+}
+
+.rw_imag{
+  object-fit: contain;
+  width: 100%;
+  max-height: 188px;
+  margin-right: 13px;
+  transition: transform 500ms;
+  cursor: pointer;
+}
+
+.rw_imag:hover{
+  transform: scale(1.03);
+}

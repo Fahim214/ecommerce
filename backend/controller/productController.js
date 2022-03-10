@@ -40,6 +40,30 @@ exports.getProducts = CatchAsyncErrors(async (req, res, next) => {
  
 });
 
+// get new products
+
+exports.getNewProduct = CatchAsyncErrors(async (req, res, next) => {
+
+
+  const resPerPage = 12;
+  const productsCount = await Product.countDocuments();
+
+  const apiFeatures = new APIFeatures(Product.find(), req.query)
+    .search()
+    .filter()
+    .pagination(resPerPage);
+  const products = await apiFeatures.query;
+
+  
+    res.status(200).json({
+      success: true,
+      productsCount,
+      resPerPage,
+      products
+    });
+ 
+});
+
 // get single product detail => /api/v1/product/:id
 exports.getSingleProduct = CatchAsyncErrors(async (req, res, next) => {
   const product = await Product.findById(req.params.id);

@@ -1,0 +1,16 @@
+export const ALL_NEW_REQUEST = 'ALL_NEW_REQUEST'
+export const ALL_NEW_SUCCESS = 'ALL_NEW_SUCCESS'
+export const ALL_NEW_FAIL = 'ALL_NEW_FAIL'
+
+export const NEW_DETAILS_REQUEST = 'NEW_DETAILS_REQUEST'
+export const NEW_DETAILS_SUCCESS = 'NEW_DETAILS_SUCCESS'
+export const NEW_DETAILS_FAIL = 'NEW_DETAILS_FAIL'
+
+
+export const NEW_REQUEST = 'NEW_REQUEST'
+export const NEW_SUCCESS = 'NEW_SUCCESS'
+export const NEW_RESET = 'NEW_RESET'
+export const NEW_FAIL = 'NEW_FAIL'
+
+
+export const CLEAR_ERRORS = 'CLEAR_ERRORS'
