@@ -21,16 +21,14 @@ const Home = () => {
   const categories = [
     "Electronics",
     "Buku",
-    "Cameras",
+    "Camera",
     "Laptop",
     "Accessories",
-    "Headsphones",
-    "Food",
-    "Books",
-    "Clothes/Shoes",
-    "Beauty/Health",
-    "Sports",
-    "Outdoor",
+    "Handphone",
+    "Makanan",
+    "Fashion",
+    "Kesehatan",
+    "Olahraga",
   ];
 
   const params = useParams();
@@ -74,13 +72,16 @@ const Home = () => {
                 <Search />
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-              {categories.map((category) => (
-                  <Link to="/" className="btn btn-outline-primary mx-1 mb-3" key={category}
+                {categories.map((category) => (
+                  <Link
+                    to="/"
+                    className="btn btn-outline-primary mx-1 mb-3"
+                    key={category}
                     onClick={() => setCategory(category)}
                   >
                     {category}
                   </Link>
-              ))}
+                ))}
               </Col>
             </Row>
             <section

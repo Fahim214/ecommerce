@@ -34,7 +34,8 @@ const ConfirmOrder = ({ history }) => {
         }
 
         sessionStorage.setItem('orderInfo', JSON.stringify(data))
-
+        
+        localStorage.removeItem(cartItems, shippingInfo)
         dispatch(removeItemFromCart(cartItems, shippingInfo))
         navigate('/success')
     }
